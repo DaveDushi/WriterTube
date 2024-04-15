@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Blog Posts</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet" />
+    <style>
+        p {
+            text-indent: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <!-- Nav Bar -->
+    <nav class="bg-blue-600 p-4 text-white flex justify-between">
+        <div>
+            <h1 class="text-2xl font-bold">AI Blog Generator</h1>
+        </div>
+        <div class="md:hidden">
+            <!-- Mobile menu button -->
+            <button id="mobileMenuButton" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden md:flex">
+            <!-- Desktop menu items -->
+            <a href="#" class="text-white mx-4">Welcome {{user.username}}</a>
+            <a href="/" class="text-white hover:underline mr-4">New Blog</a>
+            <a href="/logout" class="text-white hover:underline">Logout</a>
+        </div>
+    </nav>
+    <!-- Mobile menu -->
+    <div id="mobileMenuDropdown" class="md:hidden bg-blue-600 hidden">
+        <a href="/" class="block text-white hover:bg-blue-700 hover:text-white px-3 py-2">New Blog</a>
+        <a href="/logout" class="block text-white hover:bg-blue-700 hover:text-white px-3 py-2">Logout</a>
+    </div>
+
+    <script>
+        document.getElementById("mobileMenuButton").addEventListener("click", function() {
+            document.getElementById("mobileMenuDropdown").classList.toggle("hidden");
+        });
+    </script>
+
+    <!-- Main content container -->
+    <div class="container mx-auto mt-10 px-4 sm:px-0">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <!-- Blog posts section -->
+            <section>
+                <h2 class="text-xl mb-4 font-semibold">All Blog Posts</h2>
+                <div class="space-y-4">
+                    
+                    {% for article in blog_articles reversed %}
+                    <a href="blog-details/{{article.id}}">
+                        <div class="border border-gray-300 p-4 rounded-lg mb-2">
+                            <h3 class="text-lg font-semibold">{{article.youtube_title}}</h3>
+                            <p>{{article.generated_content|truncatechars:80 |safe}}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer class="text-center p-4 text-black mt-6">
+        Powered by Dave Dushi
+    </footer>
+</body>
+</html>
