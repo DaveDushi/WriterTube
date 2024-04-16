@@ -174,7 +174,7 @@ def blog_details(request, pk):
     else:
         return redirect('/')
 
-
+@csrf_exempt #change this at somepoint 
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -191,6 +191,7 @@ def user_login(request):
 
     return render(request, 'login.html')
 
+@csrf_exempt #change this at somepoint 
 def user_signup(request):
     if request.method == 'POST':
         username = request.POST['username']
